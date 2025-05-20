@@ -1639,23 +1639,22 @@
       const regulationText = document.getElementById("summaryRegulationCompliance").textContent;
       document.getElementById("summary_regulation_compliance").textContent = regulationText || "לא הוערך";
 
-      // המלצות אישורים נדרשים
-      const approvalsEl = document.getElementById("summary_approvals_needed");
-      
-      if (innovationLevelText === "לא הוערך" || regulationText === "לא הוערך") {
-        approvalsEl.textContent = "לא ניתן לקבוע - נדרשת השלמת הערכת החדשנות והתאמה לרגולif (innovationLevelText === "לא הוערך" || regulationText === "לא הוערך") {
-        approvalsEl.textContent = "לא ניתן לקבוע - נדרשת השלמת הערכת החדשנות והתאמה לרגולציה";
-      } else if (innovationLevelText === "גבוהה") {
-        if (regulationText === "גבוהה") {
-          approvalsEl.textContent = "נדרש תהליך אישור מקיף ממשרד החינוך בהתאם לנהלי אסדרת חדשנות. מומלץ לפנות ליחידת החדשנות במשרד.";
-        } else {
-          approvalsEl.textContent = "נדרש אישור ממשרד החינוך טרם יישום הפרויקט בשל רמת החדשנות הגבוהה.";
-        }
-      } else if (regulationText === "נמוכה") {
-        approvalsEl.textContent = "יש לשפר את ההתאמה לדרישות האסדרה לפני יישום הפרויקט.";
-      } else {
-        approvalsEl.textContent = "אין צורך באישורים מיוחדים מעבר לנוהלים הרגילים של המוסד החינוכי.";
-      }
+      // // המלצות אישורים נדרשים
+const approvalsEl = document.getElementById("summary_approvals_needed");
+
+if (innovationLevelText === "לא הוערך" || regulationText === "לא הוערך") {
+  approvalsEl.textContent = "לא ניתן לקבוע - נדרשת השלמת הערכת החדשנות והתאמה לרגולציה";
+} else if (innovationLevelText === "גבוהה") {
+  if (regulationText === "גבוהה") {
+    approvalsEl.textContent = "נדרש תהליך אישור מקיף ממשרד החינוך בהתאם לנהלי אסדרת חדשנות. מומלץ לפנות ליחידת החדשנות במשרד.";
+  } else {
+    approvalsEl.textContent = "נדרש אישור ממשרד החינוך טרם יישום הפרויקט בשל רמת החדשנות הגבוהה.";
+  }
+} else if (regulationText === "נמוכה") {
+  approvalsEl.textContent = "יש לשפר את ההתאמה לדרישות האסדרה לפני יישום הפרויקט.";
+} else {
+  approvalsEl.textContent = "אין צורך באישורים מיוחדים מעבר לנוהלים הרגילים של המוסד החינוכי.";
+}
 
       // אסטרטגיות התמודדות כלליות
       document.getElementById("summary_general_strategy").textContent = document.getElementById("generalRiskStrategy").value || "לא צוינה אסטרטגיה";
