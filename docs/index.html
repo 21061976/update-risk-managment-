@@ -34,67 +34,31 @@
       margin-bottom: 20px;
       border-bottom: 2px solid #ddd;
     }
-    /* צבעים שונים ללשוניות הראשיות - טקסט וכפתורים */
-    .tab-button:nth-child(1) {
-      background-color: #3a86ff;
-      color: white;
-      border-radius: 5px 0 0 0;
-      border: none;
-    }
-    .tab-button:nth-child(1).active {
-      background-color: #264d9b;
-    }
-    .tab-button:nth-child(2) {
-      background-color: #ff595e;
-      color: white;
-      border: none;
-    }
-    .tab-button:nth-child(2).active {
-      background-color: #b23a3d;
-    }
-    .tab-button:nth-child(3) {
-      background-color: #ffca3a;
-      color: #333;
-      border: none;
-    }
-    .tab-button:nth-child(3).active {
-      background-color: #b2902a;
-      color: white;
-    }
-    .tab-button:nth-child(4) {
-      background-color: #8ac926;
-      color: white;
-      border: none;
-    }
-    .tab-button:nth-child(4).active {
-      background-color: #5c7c19;
-    }
-    .tab-button:nth-child(5) {
-      background-color: #1982c4;
-      color: white;
-      border-radius: 0 5px 0 0;
-      border: none;
-    }
-    .tab-button:nth-child(5).active {
-      background-color: #115a83;
-    }
     .tab-button {
+      background-color: #0056b3; /* צבע רקע לשוניות */
+      color: white; /* טקסט לבן לשוניות */
+      border: none;
       outline: none;
       cursor: pointer;
       padding: 12px 16px;
       transition: 0.3s;
       font-size: 16px;
+      border-radius: 5px 5px 0 0;
       margin-left: 5px;
     }
-    .tab-button:hover:not(.active) {
-      filter: brightness(0.85);
+    .tab-button:hover {
+      background-color: #003d82;
+    }
+    .tab-button.active {
+      background-color: #00275a;
+      font-weight: bold;
     }
     .tab-content {
       display: none;
       padding: 20px;
       border: 1px solid #ddd;
       border-radius: 0 0 5px 5px;
-      background: white;
+      background-color: white;
     }
     .tab-content.active {
       display: block;
@@ -552,11 +516,11 @@
             <textarea id="expectedOutcomes" placeholder="פרט את התוצרים המצופים מהפרויקט"></textarea>
           </div>
 
-          <!-- הוספת אפשרות להעלאת קובץ -->
+          <!-- הוספת שדה העלאת קובץ -->
           <div class="form-group">
-            <label for="projectFile">העלה קובץ רלוונטי (Word, PDF):</label>
+            <label for="projectFile">העלה קובץ (Word או PDF):</label>
             <input type="file" id="projectFile" accept=".doc,.docx,.pdf" onchange="handleFileUpload(event)" />
-            <div id="uploadedFileName" style="margin-top: 5px; font-style: italic; color: #555;"></div>
+            <p style="margin-top: 5px; font-size: 14px; color: #555;">שם הקובץ שהועלה: <span id="uploadedFileName">אין קובץ</span></p>
           </div>
 
         </div>
@@ -592,10 +556,6 @@
             <div class="summary-item">
               <div class="summary-label">השלמת פרטים</div>
               <div class="summary-value" id="projectCompletionPercent">0%</div>
-            </div>
-            <div class="summary-item">
-              <div class="summary-label">הקובץ שהועלה</div>
-              <div class="summary-value" id="summaryUploadedFile">אין קובץ</div>
             </div>
             <div class="summary-item">
               <div class="summary-label">השלב הבא</div>
@@ -1035,40 +995,13 @@
             
             <div class="form-group">
               <label>אסטרטגיה כללית להפחתת סיכונים בפרויקט:</label>
-              <textarea id="generalRiskStrategy" placeholder="תאר את האסטרטגיה הכללית להפחתת סיכונים בפרויקט" style="width: 100%; height: 100px;" onchange="updateEfficiency()"></textarea>
-            </div>
-
-            <!-- שדות חדשים לתובנות והמלצות -->
-            <div class="form-group">
-              <label>אסטרטגיית פעולה - לוח זמנים למעקב (לדוגמה: מידי שבוע, חודשי, רבעוני):</label>
-              <input type="text" id="actionPlanTimeline" placeholder="ציין לוח זמנים למעקב אחר האסטרטגיה" onchange="updateEfficiency()" />
-            </div>
-            <div class="form-group">
-              <label>המלצות לקידום הפרויקט - מידיות:</label>
-              <textarea id="recommendationsImmediate" placeholder="המלצות לפעולות מידיות" style="width: 100%; height: 60px;"></textarea>
-            </div>
-            <div class="form-group">
-              <label>המלצות לקידום הפרויקט - טווח בינוני:</label>
-              <textarea id="recommendationsMidTerm" placeholder="המלצות לטווח בינוני" style="width: 100%; height: 60px;"></textarea>
-            </div>
-            <div class="form-group">
-              <label>המלצות לקידום הפרויקט - טווח ארוך:</label>
-              <textarea id="recommendationsLongTerm" placeholder="המלצות לטווח ארוך" style="width: 100%; height: 60px;"></textarea>
-            </div>
-            <div class="form-group">
-              <label>סיכום מנהלים:</label>
-              <textarea id="executiveSummary" placeholder="סיכום עבור מנהלים" style="width: 100%; height: 80px;"></textarea>
-            </div>
-            <div class="form-group">
-              <label>נספחים (קישורים/קבצים/הערות):</label>
-              <textarea id="appendices" placeholder="נספחים רלוונטיים" style="width: 100%; height: 80px;"></textarea>
+              <textarea id="generalRiskStrategy" placeholder="תאר את האסטרטגיה הכללית להפחתת סיכונים בפרויקט" style="width: 100%; height: 100px;"></textarea>
             </div>
             
             <div class="form-group">
-              <label>יעילות צפויה של הפרויקט (אחוז):</label>
-              <input type="text" id="expectedEffectiveness" value="לא הוערך" readonly style="background-color: #eee;"/>
+              <label>יעילות צפויה (אחוזים):</label>
+              <input type="text" id="expectedEffectiveness" readonly value="לא הוערך" style="background-color:#eee; cursor: default;"/>
             </div>
-
           </div>
         </div>
         
@@ -1082,7 +1015,7 @@
             </div>
             <div class="summary-item">
               <div class="summary-label">יעילות צפויה</div>
-              <div class="summary-value" id="summaryExpectedEffectiveness">לא הוערך</div>
+              <div class="summary-value" id="displayExpectedEffectiveness">לא הוערך</div>
             </div>
             <div class="summary-item">
               <div class="summary-label">השלב הבא</div>
@@ -1132,7 +1065,7 @@
               <strong>תוצרים מצופים: </strong><p id="summary_expected_outcomes">לא צוין</p>
             </div>
             <div class="report-item">
-              <strong>קובץ שהועלה: </strong><span id="summaryUploadedFileReport">אין קובץ</span>
+              <strong>קובץ שהועלה: </strong><span id="summary_uploaded_file">אין קובץ</span>
             </div>
           </div>
           
@@ -1170,144 +1103,97 @@
             </div>
             <div class="report-item">
               <strong>המלצות לגבי אישורים נדרשים: </strong>
-              <p id="summary_regulation_recommendations">לא נמסרו</p>
+              <p id="summary_approvals_needed">לא ניתן לקבוע - נדרשת השלמת הערכת החדשנות</p>
             </div>
           </div>
           
           <div class="report-section">
-            <h3>תוכנית התמודדות ואסטרטגיות פעולה</h3>
+            <h3>אסטרטגיות התמודדות</h3>
             <div class="report-item">
-              <strong>אסטרטגיה כללית להפחתת סיכונים:</strong>
-              <p id="summary_general_strategy">לא סופק</p>
+              <strong>אסטרטגיה כללית להפחתת סיכונים: </strong>
+              <p id="summary_general_strategy">לא צוינה אסטרטגיה</p>
             </div>
             <div class="report-item">
-              <strong>לוח זמנים למעקב אחר האסטרטגיה:</strong>
-              <p id="summary_action_plan_timeline">לא סופק</p>
+              <strong>סיכונים מרכזיים ודרכי התמודדות: </strong>
+              <div id="summary_risk_strategies">
+                <p>לא פותחו אסטרטגיות ספציפיות</p>
+              </div>
             </div>
             <div class="report-item">
-              <strong>המלצות מידיות:</strong>
-              <p id="summary_recommendations_immediate">לא סופקו</p>
-            </div>
-            <div class="report-item">
-              <strong>המלצות לטווח בינוני:</strong>
-              <p id="summary_recommendations_midterm">לא סופקו</p>
-            </div>
-            <div class="report-item">
-              <strong>המלצות לטווח ארוך:</strong>
-              <p id="summary_recommendations_longterm">לא סופקו</p>
-            </div>
-            <div class="report-item">
-              <strong>סיכום מנהלים:</strong>
-              <p id="summary_executive_summary">לא סופק</p>
-            </div>
-            <div class="report-item">
-              <strong>נספחים:</strong>
-              <p id="summary_appendices">לא סופקו</p>
-            </div>
-          </div>
-
-          <div class="report-section">
-            <h3>יעילות צפויה של הפרויקט</h3>
-            <div class="report-item" style="font-size: 20px; color: #0056b3;">
-              <strong><span id="summary_effectiveness_report">לא הוערך</span>%</strong>
+              <strong>יעילות צפויה: </strong><span id="summary_expected_effectiveness">לא הוערך</span>
             </div>
           </div>
           
+          <div class="report-section">
+            <h3>תובנות מרכזיות ומעקב</h3>
+            <div class="report-item">
+              <strong>אסטרטגיית פעולה לפי מדדי זמן ולוח זמנים למעקב:</strong>
+              <p id="summary_action_plan">נא למלא את אסטרטגיית הפעולה בתוכנית ההתמודדות</p>
+            </div>
+          </div>
+          
+          <div class="report-section">
+            <h3>המלצות להמשך</h3>
+            <div class="report-item">
+              <strong>א. המלצות לקידום הפרויקט - מידיות, טווח בינוני וטווח ארוך:</strong>
+              <p id="summary_recommendations_promote">נא להוסיף המלצות מתאימות</p>
+            </div>
+            <div class="report-item">
+              <strong>ב. סיכום מנהלים:</strong>
+              <p id="summary_management_summary">נא להוסיף סיכום מנהלים</p>
+            </div>
+            <div class="report-item">
+              <strong>ג. נספחים:</strong>
+              <p id="summary_appendices">נא לצרף נספחים במידת הצורך</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- כפתורי פעולה לדוח המסכם -->
+        <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
           <button onclick="window.print()">הדפס דוח</button>
-          <button onclick="downloadReport()">הורד דוח כקובץ TXT</button>
+          <button onclick="exportToPDF()">יצא ל-PDF</button>
+          <button onclick="saveData()">שמור נתונים</button>
+        </div>
+        
+        <div class="navigation-buttons">
+          <button class="back-button" onclick="openTab(event, 'tab4')">חזרה לתוכנית התמודדות</button>
         </div>
       </div>
+      
     </div>
   </div>
-  
+
   <script>
-    // -- מעבר בין לשוניות --
+    // --- פונקציות ניווט בין לשוניות ---
     function openTab(evt, tabId) {
+      const tabButtons = document.querySelectorAll('.tab-button');
       const tabContents = document.querySelectorAll('.tab-content');
-      tabContents.forEach(tc => tc.classList.remove('active'));
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      evt.currentTarget.classList.add('active');
       document.getElementById(tabId).classList.add('active');
       
-      // כפתורי לשוניות
-      const tabButtons = document.querySelectorAll('.tab-button');
-      tabButtons.forEach(tb => tb.classList.remove('active'));
-      evt.currentTarget.classList.add('active');
-      
-      // עדכון חיווי התקדמות
-      updateProgress(tabId);
+      updateProgressIndicator(tabId);
     }
     
-    function updateProgress(tabId) {
+    function updateProgressIndicator(tabId) {
       const steps = ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'];
       steps.forEach((step, index) => {
-        const stepElem = document.getElementById(`step${index+1}`);
-        if(step === tabId) {
-          stepElem.querySelector('.progress-dot').classList.add('active');
+        const stepDiv = document.getElementById('step' + (index + 1));
+        if (step === tabId) {
+          stepDiv.querySelector('.progress-dot').classList.add('active');
         } else {
-          stepElem.querySelector('.progress-dot').classList.remove('active');
+          stepDiv.querySelector('.progress-dot').classList.remove('active');
         }
       });
     }
     
-    // -- אימות וניווט בלשונית 1 --
-    function validateAndGoToTab(tabId, event) {
-      event.preventDefault();
-      const projectName = document.getElementById('projectName').value.trim();
-      if (!projectName) {
-        alert('אנא מלא שם הפרויקט');
-        return;
-      }
-      updateProjectSummary();
-      openTab(event, tabId);
-    }
-    
-    function updateProjectSummary() {
-      const projectName = document.getElementById('projectName').value.trim() || 'לא צוין';
-      const projectManager = document.getElementById('projectManager').value.trim() || 'לא צוין';
-      const organizationName = document.getElementById('organizationName').value.trim() || 'לא צוין';
-      const projectType = document.getElementById('projectType').value || 'לא צוין';
-      const projectScope = document.getElementById('projectScope').value || 'לא צוין';
-      const projectDesc = document.getElementById('projectDesc').value.trim() || 'לא צוין';
-      const expectedOutcomes = document.getElementById('expectedOutcomes').value.trim() || 'לא צוין';
-      const uploadedFile = document.getElementById('uploadedFileName').textContent || 'אין קובץ';
-
-      document.getElementById('summary_project_name').textContent = projectName;
-      document.getElementById('summary_project_manager').textContent = projectManager;
-      document.getElementById('summary_organization').textContent = organizationName;
-      document.getElementById('summary_project_type').textContent = projectType;
-      document.getElementById('summary_project_scope').textContent = projectScope;
-      document.getElementById('summary_project_desc').textContent = projectDesc;
-      document.getElementById('summary_expected_outcomes').textContent = expectedOutcomes;
-      document.getElementById('summaryUploadedFileReport').textContent = uploadedFile;
-      
-      // עדכון אחוז השלמת הגדרת פרויקט (נבדוק שדות מלאים)
-      let filledFields = 0;
-      const fieldsToCheck = ['projectName', 'projectManager', 'organizationName', 'projectType', 'projectScope', 'projectDesc', 'expectedOutcomes'];
-      fieldsToCheck.forEach(id => {
-        if(document.getElementById(id).value.trim() !== '') {
-          filledFields++;
-        }
-      });
-      const completionPercent = Math.round((filledFields / fieldsToCheck.length) * 100);
-      document.getElementById('projectCompletionPercent').textContent = completionPercent + '%';
-    }
-    
-    // -- העלאת קובץ --
-    function handleFileUpload(event) {
-      const fileInput = event.target;
-      const fileNameDisplay = document.getElementById('uploadedFileName');
-      if (fileInput.files.length > 0) {
-        fileNameDisplay.textContent = fileInput.files[0].name;
-      } else {
-        fileNameDisplay.textContent = 'אין קובץ';
-      }
-      updateProjectSummary();
-    }
-    
-    // -- ניהול סיכונים --
+    // --- ניהול סיכונים: הוספת והסרת שורות ---
     function addRow() {
       const tbody = document.querySelector('#riskTable tbody');
-      const row = document.createElement('tr');
-      row.innerHTML = `
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
         <td>
           <select class="risk-category">
             <option value="תוכן ותכנים">תוכן ותכנים</option>
@@ -1329,406 +1215,402 @@
         <td class="risk-severity">1</td>
         <td><input type="text" class="risk-actions" placeholder="פעולות מוצעות" /><button onclick="removeRow(this)" style="margin-right: 5px;">הסר</button></td>
       `;
-      tbody.appendChild(row);
-      updateSummary();
+      tbody.appendChild(newRow);
+      updateRiskSummary();
+      updateExpectedEffectiveness();
     }
     
     function removeRow(button) {
       const row = button.closest('tr');
       row.remove();
-      updateSummary();
+      updateRiskSummary();
+      updateExpectedEffectiveness();
     }
     
     function calculateSeverity(input) {
       const row = input.closest('tr');
-      const probability = parseInt(row.querySelector('.risk-probability').value) || 1;
-      const impact = parseInt(row.querySelector('.risk-impact').value) || 1;
+      const probInput = row.querySelector('.risk-probability');
+      const impactInput = row.querySelector('.risk-impact');
+      const severityCell = row.querySelector('.risk-severity');
+      
+      const probability = parseInt(probInput.value) || 1;
+      const impact = parseInt(impactInput.value) || 1;
       const severity = probability * impact;
-      row.querySelector('.risk-severity').textContent = severity;
-      updateSummary();
+      severityCell.textContent = severity;
+      applySeverityClass(severityCell, severity);
+      
+      updateRiskSummary();
+      updateExpectedEffectiveness();
     }
     
-    function updateSummary() {
-      const rows = document.querySelectorAll('#riskTable tbody tr');
+    function applySeverityClass(cell, severity) {
+      cell.classList.remove('risk-high', 'risk-medium', 'risk-low');
+      if (severity >= 65) {
+        cell.classList.add('risk-high');
+      } else if (severity >= 21) {
+        cell.classList.add('risk-medium');
+      } else {
+        cell.classList.add('risk-low');
+      }
+    }
+    
+    function updateRiskSummary() {
+      const tbody = document.querySelector('#riskTable tbody');
+      const rows = tbody.querySelectorAll('tr');
       let totalRisks = rows.length;
-      let highRisks = 0;
       let mediumRisks = 0;
       let lowRisks = 0;
+      let highRisks = 0;
       
       rows.forEach(row => {
         const severity = parseInt(row.querySelector('.risk-severity').textContent) || 0;
-        if (severity >= 65) {
-          highRisks++;
-          row.classList.add('risk-high');
-          row.classList.remove('risk-medium', 'risk-low');
-        } else if (severity >= 21) {
-          mediumRisks++;
-          row.classList.add('risk-medium');
-          row.classList.remove('risk-high', 'risk-low');
-        } else {
-          lowRisks++;
-          row.classList.add('risk-low');
-          row.classList.remove('risk-high', 'risk-medium');
-        }
+        if (severity >= 65) highRisks++;
+        else if (severity >= 21) mediumRisks++;
+        else lowRisks++;
       });
       
       document.getElementById('totalRisks').textContent = totalRisks;
       document.getElementById('mediumRisks').textContent = mediumRisks;
       document.getElementById('lowRisks').textContent = lowRisks;
       
-      // עדכון סיכום לשונית דוח מסכם
+      // עדכון לסיכום בדוח המסכם
       document.getElementById('summary_risks_count').textContent = totalRisks;
       document.getElementById('summary_high_risks').textContent = highRisks;
       document.getElementById('summary_medium_risks').textContent = mediumRisks;
       document.getElementById('summary_low_risks').textContent = lowRisks;
-      
-      // עדכון רשימת סיכונים עיקריים
-      const mainRisksList = document.getElementById('summary_main_risks');
-      mainRisksList.innerHTML = '';
-      let hasRisks = false;
-      rows.forEach(row => {
-        const severity = parseInt(row.querySelector('.risk-severity').textContent) || 0;
-        if (severity >= 21) {
-          hasRisks = true;
-          const desc = row.querySelector('.risk-description').value.trim();
-          const li = document.createElement('li');
-          li.textContent = desc || 'סיכון ללא תיאור';
-          mainRisksList.appendChild(li);
-        }
-      });
-      if (!hasRisks) {
-        mainRisksList.innerHTML = '<li>לא זוהו סיכונים משמעותיים</li>';
-      }
-      
-      // עדכון טבלת סיכונים לפי חומרה ללשונית תוכנית התמודדות
-      updateRiskTablesForHandling();
     }
     
-    // מוסיף דוגמה של סיכון
-    function addExampleRisk(category, description, impacts, probability, impact, actions) {
+    // הוספת דוגמה לסיכון בטבלה
+    function addExampleRisk(category, description, impacts, probability, severity, actions) {
       addRow();
-      const lastRow = document.querySelector('#riskTable tbody tr:last-child');
+      const tbody = document.querySelector('#riskTable tbody');
+      const lastRow = tbody.lastElementChild;
       lastRow.querySelector('.risk-category').value = category;
       lastRow.querySelector('.risk-description').value = description;
       lastRow.querySelector('.risk-impacts').value = impacts;
       lastRow.querySelector('.risk-probability').value = probability;
-      lastRow.querySelector('.risk-impact').value = impact;
+      lastRow.querySelector('.risk-impact').value = severity;
       lastRow.querySelector('.risk-actions').value = actions;
       calculateSeverity(lastRow.querySelector('.risk-probability'));
     }
     
-    // -- אסדרת חדשנות --
+    // --- חישוב רמת חדשנות ---
     function calculateInnovationLevel() {
-      let sum = 0;
-      let allAnswered = true;
-      for (let i = 1; i <= 5; i++) {
+      let total = 0;
+      let count = 0;
+      for(let i=1; i<=5; i++) {
         const radios = document.getElementsByName('innovation' + i);
-        let answered = false;
-        for (const r of radios) {
-          if (r.checked) {
-            sum += parseInt(r.value);
-            answered = true;
-            break;
+        for (const radio of radios) {
+          if (radio.checked) {
+            total += parseInt(radio.value);
+            count++;
           }
         }
-        if (!answered) allAnswered = false;
       }
-      const resultElem = document.getElementById('innovationLevelResult');
-      const categoryElem = document.getElementById('innovationCategory');
-      const barElem = document.getElementById('innovationLevelBar');
-
-      if (!allAnswered) {
-        resultElem.textContent = '0/25';
-        categoryElem.textContent = 'רמת חדשנות: לא הוערך';
-        barElem.style.width = '0%';
-        barElem.style.backgroundColor = '#ccc';
+      const maxScore = 5 * 5; // 5 שאלות * 5 נקודות לכל שאלה = 25
+      const innovationLevelResult = document.getElementById('innovationLevelResult');
+      const innovationCategory = document.getElementById('innovationCategory');
+      const innovationLevelBar = document.getElementById('innovationLevelBar');
+      if (count < 5) {
+        innovationLevelResult.textContent = '0/25';
+        innovationCategory.textContent = 'רמת חדשנות: לא הוערך';
+        innovationLevelBar.style.width = '0%';
+        innovationLevelBar.style.backgroundColor = '#bbb';
         document.getElementById('summaryInnovationLevel').textContent = 'לא הוערך';
         return;
       }
-
-      resultElem.textContent = sum + '/25';
-      const percent = (sum / 25) * 100;
-      barElem.style.width = percent + '%';
-
-      if (sum <= 8) {
-        categoryElem.textContent = 'רמת חדשנות: נמוכה';
-        barElem.style.backgroundColor = '#ffc107';
-      } else if (sum <= 16) {
-        categoryElem.textContent = 'רמת חדשנות: בינונית';
-        barElem.style.backgroundColor = '#17a2b8';
+      innovationLevelResult.textContent = `${total}/${maxScore}`;
+      const percentage = (total / maxScore) * 100;
+      innovationLevelBar.style.width = percentage + '%';
+      let categoryText = '';
+      let color = '';
+      if (total <= 8) {
+        categoryText = 'נמוכה';
+        color = '#dc3545'; // אדום
+      } else if (total <= 16) {
+        categoryText = 'בינונית';
+        color = '#ffc107'; // צהוב
       } else {
-        categoryElem.textContent = 'רמת חדשנות: גבוהה';
-        barElem.style.backgroundColor = '#28a745';
+        categoryText = 'גבוהה';
+        color = '#28a745'; // ירוק
       }
-      document.getElementById('summaryInnovationLevel').textContent = categoryElem.textContent;
+      innovationCategory.textContent = 'רמת חדשנות: ' + categoryText;
+      innovationLevelBar.style.backgroundColor = color;
+      document.getElementById('summaryInnovationLevel').textContent = categoryText;
     }
     
-    // בדיקה והתייחסות לרמת התאמה לדרישות האסדרה
+    // --- בדיקת התאמה לאסדרה ---
     function checkRegulationCompliance() {
       const levels = ['privacy_level', 'welfare_level', 'values_level', 'security_level', 'accessibility_level'];
-      let total = 0;
-      let count = 0;
-      let allSelected = true;
+      let scores = 0;
+      let filledCount = 0;
       levels.forEach(id => {
-        const val = document.getElementById(id).value;
-        if (!val) allSelected = false;
-        else {
-          switch(val) {
-            case 'high': total += 3; break;
-            case 'medium': total += 2; break;
-            case 'low': total += 1; break;
-          }
-          count++;
+        const sel = document.getElementById(id);
+        if (sel.value) {
+          filledCount++;
+          if (sel.value === 'high') scores += 3;
+          else if (sel.value === 'medium') scores += 2;
+          else if (sel.value === 'low') scores += 1;
         }
       });
-      const overallElem = document.getElementById('overall_regulation_compliance');
-      if (!allSelected) {
-        overallElem.textContent = 'לא הוערך';
-        document.getElementById('summaryRegulationCompliance').textContent = 'לא הוערך';
+      const overallCompliance = document.getElementById('overall_regulation_compliance');
+      const summaryRegulationCompliance = document.getElementById('summaryRegulationCompliance');
+      if (filledCount < levels.length) {
+        overallCompliance.textContent = 'לא הוערך';
+        summaryRegulationCompliance.textContent = 'לא הוערך';
+        document.getElementById('summary_approvals_needed').textContent = 'לא ניתן לקבוע - נדרשת השלמת הערכה';
         return;
       }
-      const avg = total / count;
-      if (avg >= 2.5) {
-        overallElem.textContent = 'התאמה גבוהה';
-        document.getElementById('summaryRegulationCompliance').textContent = 'התאמה גבוהה';
-      } else if (avg >= 1.8) {
-        overallElem.textContent = 'התאמה בינונית';
-        document.getElementById('summaryRegulationCompliance').textContent = 'התאמה בינונית';
+      const average = scores / levels.length;
+      let text = '';
+      if (average >= 2.5) text = 'מלאה';
+      else if (average >= 1.5) text = 'חלקית';
+      else text = 'נמוכה';
+      overallCompliance.textContent = text;
+      summaryRegulationCompliance.textContent = text;
+      if (text === 'מלאה') {
+        document.getElementById('summary_approvals_needed').textContent = 'הפרויקט עומד בדרישות האסדרה ואין צורך באישורים נוספים';
       } else {
-        overallElem.textContent = 'התאמה נמוכה';
-        document.getElementById('summaryRegulationCompliance').textContent = 'התאמה נמוכה';
+        document.getElementById('summary_approvals_needed').textContent = 'ייתכן ויידרשו אישורים נוספים בהתאם לרמת ההתאמה';
       }
     }
     
-    // אימות וניווט מלשונית אסדרת חדשנות ללשונית תוכנית התמודדות
+    // --- מעבר בין לשוניות עם אימות ---
+    function validateAndGoToTab(tabId, event) {
+      event.preventDefault();
+      // בדיקה בסיסית של שם הפרויקט בלבד (ניתן להרחיב)
+      const projectName = document.getElementById('projectName').value.trim();
+      if (!projectName) {
+        alert('אנא מלא את שם הפרויקט לפני ההמשך.');
+        return false;
+      }
+      openTab(event, tabId);
+      updateCompletionPercent();
+    }
+    
+    function validateRisksAndGoToTab(tabId, event) {
+      event.preventDefault();
+      // בדיקה בסיסית של טבלת הסיכונים
+      const tbody = document.querySelector('#riskTable tbody');
+      if (tbody.children.length === 0) {
+        alert('יש להוסיף לפחות סיכון אחד לפני ההמשך.');
+        return false;
+      }
+      openTab(event, tabId);
+    }
+    
     function validateInnovationAndGoToTab(tabId, event) {
       event.preventDefault();
-      // לוודא שכל שאלות החדשנות משובות
-      let allAnswered = true;
-      for (let i = 1; i <= 5; i++) {
-        const radios = document.getElementsByName('innovation' + i);
-        let answered = false;
-        for (const r of radios) {
-          if (r.checked) {
-            answered = true;
-            break;
-          }
-        }
-        if (!answered) {
-          allAnswered = false;
-          break;
-        }
-      }
-      if (!allAnswered) {
-        alert('אנא השב את כל שאלות רמת החדשנות.');
-        return;
+      // בדיקה בסיסית של הערכת חדשנות
+      const innovationCategory = document.getElementById('innovationCategory').textContent;
+      if (innovationCategory.includes('לא הוערך')) {
+        alert('אנא השלם את הערכת רמת החדשנות לפני ההמשך.');
+        return false;
       }
       openTab(event, tabId);
     }
     
-    // -- עדכון טבלאות לסיכוני חומרה גבוה ובינוני בלשונית תוכנית התמודדות --
-    function updateRiskTablesForHandling() {
-      const rows = document.querySelectorAll('#riskTable tbody tr');
-      const highRisksTbody = document.querySelector('#highRisksTable tbody');
-      const mediumRisksTbody = document.querySelector('#mediumRisksTable tbody');
-      highRisksTbody.innerHTML = '';
-      mediumRisksTbody.innerHTML = '';
-      let highCount = 0;
-      let mediumCount = 0;
-
-      rows.forEach(row => {
-        const severity = parseInt(row.querySelector('.risk-severity').textContent) || 0;
-        if (severity >= 65) {
-          highCount++;
-          const desc = row.querySelector('.risk-description').value.trim() || 'לא צויין';
-          const severityText = severity;
-          highRisksTbody.innerHTML += `
-            <tr>
-              <td>${desc}</td>
-              <td>${severityText}</td>
-              <td><textarea placeholder="אסטרטגיית טיפול" style="width: 100%;"></textarea></td>
-              <td><input type="text" placeholder="אחראי" style="width: 100%;"/></td>
-              <td><input type="text" placeholder="משאבים נדרשים" style="width: 100%;"/></td>
-              <td><input type="text" placeholder="לוח זמנים" style="width: 100%;"/></td>
-            </tr>
-          `;
-        } else if (severity >= 21) {
-          mediumCount++;
-          const desc = row.querySelector('.risk-description').value.trim() || 'לא צויין';
-          const severityText = severity;
-          mediumRisksTbody.innerHTML += `
-            <tr>
-              <td>${desc}</td>
-              <td>${severityText}</td>
-              <td><textarea placeholder="אסטרטגיית טיפול" style="width: 100%;"></textarea></td>
-              <td><input type="text" placeholder="אחראי" style="width: 100%;"/></td>
-              <td><input type="text" placeholder="משאבים נדרשים" style="width: 100%;"/></td>
-              <td><input type="text" placeholder="לוח זמנים" style="width: 100%;"/></td>
-            </tr>
-          `;
-        }
-      });
-
-      document.getElementById('noHighRisksMessage').style.display = highCount === 0 ? 'block' : 'none';
-      document.getElementById('highRisksTable').style.display = highCount > 0 ? 'table' : 'none';
-
-      document.getElementById('noMediumRisksMessage').style.display = mediumCount === 0 ? 'block' : 'none';
-      document.getElementById('mediumRisksTable').style.display = mediumCount > 0 ? 'table' : 'none';
-
-      document.getElementById('treatedRisksCount').textContent = highCount + mediumCount;
+    // --- העלאת קובץ ---
+    let uploadedFileNameGlobal = null;
+    function handleFileUpload(event) {
+      const fileInput = event.target;
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        uploadedFileNameGlobal = file.name;
+        document.getElementById('uploadedFileName').textContent = file.name;
+      } else {
+        uploadedFileNameGlobal = null;
+        document.getElementById('uploadedFileName').textContent = 'אין קובץ';
+      }
+      updateCompletionPercent();
     }
     
-    // -- חישוב יעילות צפויה של הפרויקט לפי נוסחה פשוטה (דוגמה) --
-    // יעילות = ממוצע של: (חומרת סיכונים מטופלים נמוכה יותר) + (רמת חדשנות גבוהה יותר) + (התאמה לאסדרה גבוהה יותר)
-    // הערכים מותאמים לאחוזים, תשקול טווח 0-100%
-    function updateEfficiency() {
-      // חישוב חומרת סיכונים מטופלים (נמוכה זה טוב) - נקבל ממוצע חומרות סיכונים
-      const rows = document.querySelectorAll('#riskTable tbody tr');
-      if (rows.length === 0) {
-        setEffectiveness('לא הוערך');
+    // --- עדכון אחוז השלמת פרטים ---
+    function updateCompletionPercent() {
+      const fields = [
+        document.getElementById('projectName'),
+        document.getElementById('projectManager'),
+        document.getElementById('organizationName'),
+        document.getElementById('projectType'),
+        document.getElementById('projectDesc'),
+        document.getElementById('projectScope'),
+        document.getElementById('startDate'),
+        document.getElementById('endDate'),
+        document.getElementById('stakeholders'),
+        document.getElementById('expectedOutcomes')
+      ];
+      let filledCount = 0;
+      fields.forEach(field => {
+        if (field.value && field.value.trim() !== '') {
+          filledCount++;
+        }
+      });
+      if (uploadedFileNameGlobal) filledCount++;
+      const totalFields = fields.length + 1; // כולל הקובץ
+      const percent = Math.round((filledCount / totalFields) * 100);
+      document.getElementById('projectCompletionPercent').textContent = percent + '%';
+    }
+    
+    // --- עדכון יעילות צפויה בתוכנית התמודדות ---
+    function updateExpectedEffectiveness() {
+      // דוגמה: חישוב פשוט שמחבר את ממוצע חומרת הסיכונים / 10 כפול 100
+      const tbody = document.querySelector('#riskTable tbody');
+      let totalSeverity = 0;
+      let count = 0;
+      tbody.querySelectorAll('tr').forEach(row => {
+        const severity = parseInt(row.querySelector('.risk-severity').textContent) || 0;
+        totalSeverity += severity;
+        count++;
+      });
+      if (count === 0) {
+        document.getElementById('expectedEffectiveness').value = 'לא הוערך';
+        document.getElementById('displayExpectedEffectiveness').textContent = 'לא הוערך';
         return;
       }
-      let totalSeverity = 0;
-      rows.forEach(row => {
-        totalSeverity += parseInt(row.querySelector('.risk-severity').textContent) || 0;
-      });
-      let avgSeverity = totalSeverity / rows.length;
-      
-      // הפוך את החומרה לאחוז יעילות (100 - יחס)
-      let severityScore = 100 - (avgSeverity / 100 * 100);
-      if (severityScore < 0) severityScore = 0;
-      if (severityScore > 100) severityScore = 100;
-
-      // רמת חדשנות מתוך 25, נהפוך ל-0-100%
-      const innovationText = document.getElementById('innovationLevelResult').textContent;
-      let innovationScore = 0;
-      if (innovationText && innovationText.includes('/')) {
-        const parts = innovationText.split('/');
-        const val = parseInt(parts[0]);
-        const max = parseInt(parts[1]);
-        if (!isNaN(val) && !isNaN(max) && max > 0) {
-          innovationScore = (val / max) * 100;
-        }
-      }
-
-      // התאמה לאסדרה (הערך מתוך הטבלה - נמוכה=33, בינונית=66, גבוהה=100)
-      const complianceText = document.getElementById('overall_regulation_compliance').textContent;
-      let complianceScore = 0;
-      switch (complianceText) {
-        case 'התאמה גבוהה':
-          complianceScore = 100;
-          break;
-        case 'התאמה בינונית':
-          complianceScore = 66;
-          break;
-        case 'התאמה נמוכה':
-          complianceScore = 33;
-          break;
-        default:
-          complianceScore = 0;
-      }
-      
-      // ממוצע משוקלל פשוט של שלושת המדדים
-      const finalScore = Math.round((severityScore + innovationScore + complianceScore) / 3);
-      setEffectiveness(finalScore + '%');
+      // חישוב כ- אחוז הפחתת סיכון (מדומה, ניתן להתאים לפי מודל אמיתי)
+      let avgSeverity = totalSeverity / count;
+      // נניח: יעילות צפויה = 100 - (ממוצע חומרה * 1.5), בין 0 ל-100
+      let effectiveness = Math.max(0, Math.min(100, Math.round(100 - avgSeverity * 1.5)));
+      document.getElementById('expectedEffectiveness').value = effectiveness + '%';
+      document.getElementById('displayExpectedEffectiveness').textContent = effectiveness + '%';
     }
     
-    function setEffectiveness(value) {
-      document.getElementById('expectedEffectiveness').value = value;
-      document.getElementById('summaryExpectedEffectiveness').textContent = value;
-      document.getElementById('summary_effectiveness_report').textContent = value === 'לא הוערך' ? 'לא הוערך' : value.replace('%','');
-    }
-    
-    // כשמתקדמים ללשונית הדוח המסכם - מכינים את הדוח מהנתונים שנאספו
+    // --- הכנת הדוח המסכם עם נתונים מכל הלשוניות ---
     function prepareAndGoToSummary(tabId, event) {
       event.preventDefault();
-      // עדכון תוכן הדוח המסכם מתוכן כל הלשוניות
-      
-      // פרטי הפרויקט
-      updateProjectSummary();
-
-      // סיכום ניהול סיכונים - כבר מעודכן ע"י updateSummary
-      
-      // רמת חדשנות והתאמה לאסדרה
-      calculateInnovationLevel();
-      checkRegulationCompliance();
-      
-      // אסטרטגיות התמודדות
-      document.getElementById('summary_general_strategy').textContent = document.getElementById('generalRiskStrategy').value.trim() || 'לא סופק';
-      document.getElementById('summary_action_plan_timeline').textContent = document.getElementById('actionPlanTimeline').value.trim() || 'לא סופק';
-      document.getElementById('summary_recommendations_immediate').textContent = document.getElementById('recommendationsImmediate').value.trim() || 'לא סופקו';
-      document.getElementById('summary_recommendations_midterm').textContent = document.getElementById('recommendationsMidTerm').value.trim() || 'לא סופקו';
-      document.getElementById('summary_recommendations_longterm').textContent = document.getElementById('recommendationsLongTerm').value.trim() || 'לא סופקו';
-      document.getElementById('summary_executive_summary').textContent = document.getElementById('executiveSummary').value.trim() || 'לא סופק';
-      document.getElementById('summary_appendices').textContent = document.getElementById('appendices').value.trim() || 'לא סופקו';
-      
-      updateSummary();
-      updateEfficiency();
+      fillSummaryReport();
       openTab(event, tabId);
     }
     
-    // הורדת הדוח כקובץ טקסט
-    function downloadReport() {
-      let reportText = '';
-      reportText += 'דוח ניהול סיכונים - סיכום\n\n';
+    function fillSummaryReport() {
+      // פרטי הפרויקט
+      document.getElementById('summary_project_name').textContent = document.getElementById('projectName').value || 'לא צוין';
+      document.getElementById('summary_project_manager').textContent = document.getElementById('projectManager').value || 'לא צוין';
+      document.getElementById('summary_organization').textContent = document.getElementById('organizationName').value || 'לא צוין';
+      document.getElementById('summary_project_type').textContent = document.getElementById('projectType').value || 'לא צוין';
+      document.getElementById('summary_project_scope').textContent = document.getElementById('projectScope').value || 'לא צוין';
+      document.getElementById('summary_project_desc').textContent = document.getElementById('projectDesc').value || 'לא צוין';
+      document.getElementById('summary_expected_outcomes').textContent = document.getElementById('expectedOutcomes').value || 'לא צוין';
+      document.getElementById('summary_uploaded_file').textContent = uploadedFileNameGlobal || 'אין קובץ';
       
-      // פרטי פרויקט
-      reportText += 'פרטי הפרויקט:\n';
-      reportText += 'שם הפרויקט: ' + document.getElementById('summary_project_name').textContent + '\n';
-      reportText += 'מנהל הפרויקט: ' + document.getElementById('summary_project_manager').textContent + '\n';
-      reportText += 'מוסד חינוכי/ארגון: ' + document.getElementById('summary_organization').textContent + '\n';
-      reportText += 'סוג הפרויקט: ' + document.getElementById('summary_project_type').textContent + '\n';
-      reportText += 'היקף הפרויקט: ' + document.getElementById('summary_project_scope').textContent + '\n';
-      reportText += 'תיאור הפרויקט: ' + document.getElementById('summary_project_desc').textContent + '\n';
-      reportText += 'תוצרים מצופים: ' + document.getElementById('summary_expected_outcomes').textContent + '\n';
-      reportText += 'קובץ שהועלה: ' + document.getElementById('summaryUploadedFileReport').textContent + '\n\n';
-
       // ניהול סיכונים
-      reportText += 'ניהול סיכונים:\n';
-      reportText += 'מספר סיכונים שזוהו: ' + document.getElementById('summary_risks_count').textContent + '\n';
-      reportText += 'סיכונים בחומרה גבוהה: ' + document.getElementById('summary_high_risks').textContent + '\n';
-      reportText += 'סיכונים בחומרה בינונית: ' + document.getElementById('summary_medium_risks').textContent + '\n';
-      reportText += 'סיכונים בחומרה נמוכה: ' + document.getElementById('summary_low_risks').textContent + '\n';
-      reportText += 'סיכונים עיקריים:\n';
-      const risksList = document.querySelectorAll('#summary_main_risks li');
-      risksList.forEach(li => {
-        reportText += ' - ' + li.textContent + '\n';
-      });
-      reportText += '\n';
-
-      // אסדרת חדשנות
-      reportText += 'אסדרת חדשנות:\n';
-      reportText += 'רמת חדשנות: ' + document.getElementById('summary_innovation_level').textContent + '\n';
-      reportText += 'התאמה לדרישות האסדרה: ' + document.getElementById('summary_regulation_compliance').textContent + '\n\n';
-
-      // תוכנית התמודדות ואסטרטגיות פעולה
-      reportText += 'תוכנית התמודדות:\n';
-      reportText += 'אסטרטגיה כללית להפחתת סיכונים: ' + document.getElementById('summary_general_strategy').textContent + '\n';
-      reportText += 'לוח זמנים למעקב: ' + document.getElementById('summary_action_plan_timeline').textContent + '\n';
-      reportText += 'המלצות מידיות: ' + document.getElementById('summary_recommendations_immediate').textContent + '\n';
-      reportText += 'המלצות לטווח בינוני: ' + document.getElementById('summary_recommendations_midterm').textContent + '\n';
-      reportText += 'המלצות לטווח ארוך: ' + document.getElementById('summary_recommendations_longterm').textContent + '\n';
-      reportText += 'סיכום מנהלים: ' + document.getElementById('summary_executive_summary').textContent + '\n';
-      reportText += 'נספחים: ' + document.getElementById('summary_appendices').textContent + '\n\n';
-
-      reportText += 'יעילות צפויה של הפרויקט: ' + document.getElementById('summary_effectiveness_report').textContent + '%\n';
+      document.getElementById('summary_risks_count').textContent = document.getElementById('totalRisks').textContent || '0';
+      document.getElementById('summary_high_risks').textContent = document.getElementById('mediumRisks').textContent || '0';
+      document.getElementById('summary_medium_risks').textContent = document.getElementById('mediumRisks').textContent || '0';
+      document.getElementById('summary_low_risks').textContent = document.getElementById('lowRisks').textContent || '0';
       
-      const blob = new Blob([reportText], {type: 'text/plain;charset=utf-8'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'risk_management_report.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      // סיכום סיכונים עיקריים - מתוך טבלה
+      const tbody = document.querySelector('#riskTable tbody');
+      const ul = document.getElementById('summary_main_risks');
+      ul.innerHTML = '';
+      if (tbody.children.length === 0) {
+        ul.innerHTML = '<li>לא זוהו סיכונים</li>';
+      } else {
+        for (const row of tbody.children) {
+          const desc = row.querySelector('.risk-description').value.trim();
+          const severity = row.querySelector('.risk-severity').textContent.trim();
+          if (desc) {
+            const li = document.createElement('li');
+            li.textContent = `${desc} (חומרה: ${severity})`;
+            ul.appendChild(li);
+          }
+        }
+      }
+      
+      // אסדרת חדשנות
+      document.getElementById('summary_innovation_level').textContent = document.getElementById('innovationCategory').textContent.replace('רמת חדשנות: ', '') || 'לא הוערך';
+      document.getElementById('summary_regulation_compliance').textContent = document.getElementById('overall_regulation_compliance').textContent || 'לא הוערך';
+      // המלצות אישורים
+      const complianceText = document.getElementById('summary_regulation_compliance').textContent;
+      if (complianceText === 'מלאה') {
+        document.getElementById('summary_approvals_needed').textContent = 'הפרויקט עומד בדרישות האסדרה ואין צורך באישורים נוספים';
+      } else if (complianceText === 'חלקית' || complianceText === 'נמוכה') {
+        document.getElementById('summary_approvals_needed').textContent = 'ייתכן ויידרשו אישורים נוספים בהתאם לרמת ההתאמה';
+      } else {
+        document.getElementById('summary_approvals_needed').textContent = 'לא ניתן לקבוע - נדרשת השלמת הערכה';
+      }
+      
+      // תוכנית התמודדות
+      document.getElementById('summary_general_strategy').textContent = document.getElementById('generalRiskStrategy').value || 'לא צוינה אסטרטגיה';
+      document.getElementById('summary_expected_effectiveness').textContent = document.getElementById('expectedEffectiveness').value || 'לא הוערך';
+      
+      // הצגת סיכונים עם אסטרטגיות - ניתן להרחיב לקטגוריות חומרה
+      const highRisks = [];
+      const mediumRisks = [];
+      tbody.querySelectorAll('tr').forEach(row => {
+        const severity = parseInt(row.querySelector('.risk-severity').textContent) || 0;
+        const desc = row.querySelector('.risk-description').value.trim();
+        const actions = row.querySelector('.risk-actions').value.trim() || 'לא צוינו פעולות';
+        if (severity >= 65) highRisks.push({desc, actions});
+        else if (severity >= 21) mediumRisks.push({desc, actions});
+      });
+      const container = document.getElementById('summary_risk_strategies');
+      container.innerHTML = '';
+      if (highRisks.length === 0 && mediumRisks.length === 0) {
+        container.innerHTML = '<p>לא פותחו אסטרטגיות ספציפיות</p>';
+      } else {
+        if (highRisks.length > 0) {
+          const h2 = document.createElement('h4');
+          h2.textContent = 'סיכונים בחומרה גבוהה:';
+          container.appendChild(h2);
+          const ulHigh = document.createElement('ul');
+          highRisks.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.desc} - פעולות: ${item.actions}`;
+            ulHigh.appendChild(li);
+          });
+          container.appendChild(ulHigh);
+        }
+        if (mediumRisks.length > 0) {
+          const h2 = document.createElement('h4');
+          h2.textContent = 'סיכונים בחומרה בינונית:';
+          container.appendChild(h2);
+          const ulMed = document.createElement('ul');
+          mediumRisks.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.desc} - פעולות: ${item.actions}`;
+            ulMed.appendChild(li);
+          });
+          container.appendChild(ulMed);
+        }
+      }
+      
+      // תובנות ומעקב (יש לאפשר למלא ידנית בתוכנית התמודדות - ניתן לקשר בעתיד)
+      document.getElementById('summary_action_plan').textContent = 'יש להוסיף את אסטרטגיית הפעולה לפי מדדי זמן ולוח זמנים למעקב בתוכנית ההתמודדות.';
+      
+      // המלצות להמשך
+      document.getElementById('summary_recommendations_promote').textContent = 'נא להוסיף המלצות לקידום הפרויקט - מידיות, טווח בינוני וטווח ארוך.';
+      document.getElementById('summary_management_summary').textContent = 'נא להוסיף סיכום מנהלים.';
+      document.getElementById('summary_appendices').textContent = 'נא לצרף נספחים במידת הצורך.';
     }
     
-    // אתחול עם שורה אחת בטבלה
-    document.addEventListener('DOMContentLoaded', () => {
-      calculateSeverity(document.querySelector('.risk-probability'));
-      calculateInnovationLevel();
-      checkRegulationCompliance();
+    // --- שמירת נתונים לדוגמה (ניתן לשדרג לשמירה ב-localStorage) ---
+    function saveData() {
+      alert('פונקציית שמירת נתונים טרם מיושמת.');
+    }
+    
+    // --- יצוא ל-PDF (יש להשתמש בספרייה חיצונית כמו jsPDF) ---
+    function exportToPDF() {
+      alert('פונקציית יצוא ל-PDF טרם מיושמת.');
+    }
+    
+    // --- אירועים על שדות להשלמת פרטים ---
+    const inputsToWatch = [
+      'projectName', 'projectManager', 'organizationName', 'projectType', 'projectDesc',
+      'projectScope', 'startDate', 'endDate', 'stakeholders', 'expectedOutcomes'
+    ];
+    inputsToWatch.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', updateCompletionPercent);
+      }
+    });
+    
+    // אתחול עדכון אחוז השלמת פרטים עם טעינת הדף
+    window.addEventListener('load', () => {
+      updateCompletionPercent();
+      updateRiskSummary();
+      updateExpectedEffectiveness();
     });
   </script>
 </body>
